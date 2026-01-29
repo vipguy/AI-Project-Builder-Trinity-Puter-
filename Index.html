@@ -107,6 +107,785 @@
 
     .layout {
       display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    textarea, input[type="text"], select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      color: var(--text);
+      font: inherit;
+      padding: 9px 10px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.18s ease,
+        background 0.18s ease, transform 0.12s ease;
+    }
+    textarea {
+      min-height: 76px;
+      resize: vertical;
+    }
+    textarea::placeholder,
+    input::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: rgba(129, 140, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8),
+        0 18px 40px rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
+      transform: translateY(-0.5px);
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .right-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: radial-gradient(circle at 30% 0, #a855f7, #6366f1, #0f172a);
+      color: white;
+      box-shadow: 0 16px 35px rgba(79, 70, 229, 0.65);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
+    }
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+    .btn:active {
+      transform: translateY(0.5px) scale(0.985);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.55);
+      filter: brightness(0.96);
+    }
+    .btn[disabled] {
+      opacity: 0.7;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .status-line {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(129, 140, 248, 0.8);
+      box-shadow: 0 0 10px rgba(129, 140, 248, 0.9);
+    }
+
+    .output-box {
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      max-height: 160px;
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+
+    .files-panel {
+      display: grid;
+      grid-template-columns: 0.9fr 1.4fr;
+      gap: 8px;
+      height: 100%;
+      min-height: 240px;
+    }
+    @media (max-width: 900px) {
+      .files-panel {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+      }
+    }
+
+    .files-list {
+      border-radius: 12px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      max-height: 270px;
+      overflow: auto;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 2px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .file-item:hover {
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .file-item.active {
+      background: rgba(79, 70, 229, 0.25);
+      border: 1px solid rgba(129, 140, 248, 0.7);
+    }
+    .file-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: #4ade80;
+    }
+    .file-dot-dir {
+      background: #38bdf8;
+      border-radius: 50%;
+    }
+    .file-path {
+      word-break: break-all;
+    }
+    .file-status {
+      font-size: 10px;
+      color: var(--muted);
+      margin-left: auto;
+      padding-left: 6px;
+    }
+
+    .editor-box {
+      border-radius: 12px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 270px;
+    }
+    .editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .editor-filename {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      color: #e5e7eb;
+    }
+    .editor-textarea {
+      flex: 1;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top, #020617, #020617);
+      color: #e5e7eb;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      padding: 8px 9px;
+      resize: none;
+      min-height: 120px;
+      max-height: 200px;
+      outline: none;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    footer {
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <div class="logo-orb">
+          <div class="logo-orb-inner">Q</div>
+        </div>
+        <div>
+          <h1>AI Project Builder</h1>
+          <p class="subtitle">
+            Describe an app, let the model propose files, then edit and save them into your Puter account.
+          </p>
+        </div>
+      </div>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span id="modelPillText">Trinity Large · puter.ai.chat</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">1. Describe your project</div>
+            <div class="panel-subtitle">
+              Example: “Todo app with HTML/CSS/JS, one page, dark theme, localStorage.”
+            </div>
+          </div>
+        </div>
+
+        <label style="font-size:11px; color:var(--muted); margin-bottom:3px;">
+          Project root directory (under your app sandbox)
+        </label>
+        <input id="rootPath" type="text" value="projects/todo-app"
+               placeholder="e.g. projects/my-first-app" />
+
+        <textarea id="prompt" placeholder="Describe what you want the app to do, tech stack, and any structure rules..."></textarea>
+
+        <label style="font-size:11px; color:var(--muted); margin:4px 0 3px;">
+          Model
+        </label>
+        <select id="modelSelect">
+          <option value="arcee-ai/trinity-large-preview:free">
+            Trinity Large (arcee-ai/trinity-large-preview:free)
+          </option>
+          <option value="openrouter:allenai/molmo-2-8b:free">
+            openrouter:allenai/molmo-2-8b:free
+          </option>
+          <option value="openrouter:arcee-ai/trinity-large-preview:free">
+            openrouter:arcee-ai/trinity-large-preview:free
+          </option>
+          <option value="openrouter:arcee-ai/trinity-mini:free">
+            openrouter:arcee-ai/trinity-mini:free
+          </option>
+          <option value="openrouter:cognitivecomputations/dolphin-mistral-24b-venice-edition:free">
+            openrouter:cognitivecomputations/dolphin-mistral-24b-venice-edition:free
+          </option>
+          <option value="openrouter:deepseek/deepseek-r1-0528:free">
+            openrouter:deepseek/deepseek-r1-0528:free
+          </option>
+          <option value="openrouter:google/gemma-3-12b-it:free">
+            openrouter:google/gemma-3-12b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3-27b-it:free">
+            openrouter:google/gemma-3-27b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3-4b-it:free">
+            openrouter:google/gemma-3-4b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3n-e2b-it:free">
+            openrouter:google/gemma-3n-e2b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3n-e4b-it:free">
+            openrouter:google/gemma-3n-e4b-it:free
+          </option>
+          <option value="openrouter:liquid/lfm-2.5-1.2b-instruct:free">
+            openrouter:liquid/lfm-2.5-1.2b-instruct:free
+          </option>
+          <option value="openrouter:liquid/lfm-2.5-1.2b-thinking:free">
+            openrouter:liquid/lfm-2.5-1.2b-thinking:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.1-405b-instruct:free">
+            openrouter:meta-llama/llama-3.1-405b-instruct:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.2-3b-instruct:free">
+            openrouter:meta-llama/llama-3.2-3b-instruct:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.3-70b-instruct:free">
+            openrouter:meta-llama/llama-3.3-70b-instruct:free
+          </option>
+          <option value="openrouter:mistralai/mistral-small-3.1-24b-instruct:free">
+            openrouter:mistralai/mistral-small-3.1-24b-instruct:free
+          </option>
+          <option value="openrouter:moonshotai/kimi-k2:free">
+            openrouter:moonshotai/kimi-k2:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-3-nano-30b-a3b:free">
+            openrouter:nvidia/nemotron-3-nano-30b-a3b:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-nano-12b-v2-vl:free">
+            openrouter:nvidia/nemotron-nano-12b-v2-vl:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-nano-9b-v2:free">
+            openrouter:nvidia/nemotron-nano-9b-v2:free
+          </option>
+          <option value="openrouter:openai/gpt-oss-120b:free">
+            openrouter:openai/gpt-oss-120b:free
+          </option>
+          <option value="openrouter:openai/gpt-oss-20b:free">
+            openrouter:openai/gpt-oss-20b:free
+          </option>
+          <option value="openrouter:qwen/qwen-2.5-vl-7b-instruct:free">
+            openrouter:qwen/qwen-2.5-vl-7b-instruct:free
+          </option>
+          <option value="openrouter:qwen/qwen3-4b:free">
+            openrouter:qwen/qwen3-4b:free
+          </option>
+          <option value="openrouter:qwen/qwen3-coder:free">
+            openrouter:qwen/qwen3-coder:free
+          </option>
+          <option value="openrouter:qwen/qwen3-next-80b-a3b-instruct:free">
+            openrouter:qwen/qwen3-next-80b-a3b-instruct:free
+          </option>
+          <option value="openrouter:tngtech/deepseek-r1t-chimera:free">
+            openrouter:tngtech/deepseek-r1t-chimera:free
+          </option>
+          <option value="openrouter:tngtech/deepseek-r1t2-chimera:free">
+            openrouter:tngtech/deepseek-r1t2-chimera:free
+          </option>
+          <option value="openrouter:tngtech/tng-r1t-chimera:free">
+            openrouter:tngtech/tng-r1t-chimera:free
+          </option>
+          <option value="openrouter:upstage/solar-pro-3:free">
+            openrouter:upstage/solar-pro-3:free
+          </option>
+          <option value="openrouter:z-ai/glm-4.5-air:free">
+            openrouter:z-ai/glm-4.5-air:free
+          </option>
+        </select>
+
+        <div class="controls">
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span id="statusText">Idle. Ready to plan a project.</span>
+          </div>
+          <div class="right-controls">
+            <button class="btn-secondary" id="btnExample">Fill example</button>
+            <button class="btn" id="btnGenerate">Ask AI (plan only)</button>
+          </div>
+        </div>
+
+        <div class="output-box" id="logBox"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">2. Review & save files</div>
+            <div class="panel-subtitle">
+              Click a file to preview/edit. Save when ready; nothing is written until you choose to save.
+            </div>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn-secondary btn-small" id="btnSaveCurrent">Save file</button>
+            <button class="btn btn-small" id="btnSaveAll">Save all</button>
+          </div>
+        </div>
+
+        <div class="files-panel">
+          <div class="files-list" id="filesList">
+            No plan yet. Ask the model first.
+          </div>
+
+          <div class="editor-box">
+            <div class="editor-header">
+              <span class="editor-filename" id="editorFilename">No file selected</span>
+              <span id="editorStatus"></span>
+            </div>
+            <textarea id="editorContent" class="editor-textarea" placeholder="File contents will appear here when you click a file..."></textarea>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Files are only stored in your Puter space when you click save. Edit freely before you write.
+    </footer>
+  </div>
+
+  <script>
+    const promptEl = document.getElementById('prompt');
+    const rootPathEl = document.getElementById('rootPath');
+    const statusTextEl = document.getElementById('statusText');
+    const logBoxEl = document.getElementById('logBox');
+    const filesListEl = document.getElementById('filesList');
+    const btnGenerate = document.getElementById('btnGenerate');
+    const btnExample = document.getElementById('btnExample');
+    const btnSaveCurrent = document.getElementById('btnSaveCurrent');
+    const btnSaveAll = document.getElementById('btnSaveAll');
+    const modelSelectEl = document.getElementById('modelSelect');
+    const modelPillTextEl = document.getElementById('modelPillText');
+    const editorFilenameEl = document.getElementById('editorFilename');
+    const editorContentEl = document.getElementById('editorContent');
+    const editorStatusEl = document.getElementById('editorStatus');
+
+    let currentPlan = null;
+    let currentFiles = []; // normalized with fullPath, type, content
+    let currentFileIndex = -1;
+
+    function log(message) {
+      const time = new Date().toLocaleTimeString();
+      logBoxEl.textContent += '[' + time + '] ' + message + '\n';
+      logBoxEl.scrollTop = logBoxEl.scrollHeight;
+    }
+
+    function setStatus(text) {
+      statusTextEl.textContent = text;
+    }
+
+    function setBusy(busy) {
+      btnGenerate.disabled = busy;
+      btnExample.disabled = busy;
+      modelSelectEl.disabled = busy;
+      btnSaveCurrent.disabled = busy;
+      btnSaveAll.disabled = busy;
+    }
+
+    function updateModelPill() {
+      const v = modelSelectEl.value;
+      if (v === 'arcee-ai/trinity-large-preview:free') {
+        modelPillTextEl.textContent = 'Trinity Large · puter.ai.chat';
+      } else {
+        modelPillTextEl.textContent = v + ' · puter.ai.chat';
+      }
+    }
+
+    modelSelectEl.addEventListener('change', updateModelPill);
+    updateModelPill();
+
+    btnExample.addEventListener('click', () => {
+      promptEl.value =
+`Build a simple mobile-friendly Todo web app:
+
+- Use HTML, CSS, and vanilla JS
+- One main page with header and a card-style list
+- Add tasks, mark complete, delete
+- Persist to localStorage
+- Use a dark theme with a purple accent
+- Put code into: index.html, style.css, app.js
+
+Also include a short README.md explaining how to run it.`;
+      rootPathEl.value = 'projects/todo-app';
+    });
+
+    function renderFilesList() {
+      if (!currentFiles.length) {
+        filesListEl.textContent = 'No files in plan yet.';
+        return;
+      }
+      filesListEl.innerHTML = '';
+      currentFiles.forEach((f, idx) => {
+        const div = document.createElement('div');
+        div.className = 'file-item' + (idx === currentFileIndex ? ' active' : '');
+        const dot = document.createElement('div');
+        dot.className = 'file-dot' + (f.type === 'dir' ? ' file-dot-dir' : '');
+        const pathSpan = document.createElement('div');
+        pathSpan.className = 'file-path';
+        pathSpan.textContent = f.fullPath;
+        const statusSpan = document.createElement('div');
+        statusSpan.className = 'file-status';
+        statusSpan.textContent = f.savedStatus || (f.type === 'dir' ? 'dir (not saved yet)' : 'not saved');
+        div.appendChild(dot);
+        div.appendChild(pathSpan);
+        div.appendChild(statusSpan);
+
+        div.addEventListener('click', () => {
+          openFileInEditor(idx);
+        });
+
+        filesListEl.appendChild(div);
+      });
+    }
+
+    function openFileInEditor(index) {
+      if (index < 0 || index >= currentFiles.length) return;
+      currentFileIndex = index;
+      const file = currentFiles[index];
+
+      const items = filesListEl.querySelectorAll('.file-item');
+      items.forEach((el, i) => {
+        el.classList.toggle('active', i === index);
+      });
+
+      editorFilenameEl.textContent = file.fullPath + (file.type === 'dir' ? ' (directory)' : '');
+      if (file.type === 'dir') {
+        editorContentEl.value = '// Directory (no direct content).';
+        editorContentEl.disabled = true;
+      } else {
+        editorContentEl.disabled = false;
+        editorContentEl.value = file.content || '';
+      }
+      editorStatusEl.textContent = file.savedStatus || 'Not saved yet';
+    }
+
+    async function callModelForPlan(rootPath, description, modelId) {
+      const systemPrompt = `
+You are an AI project planner and code generator running inside a Puter.js app.
+You MUST respond ONLY with valid JSON, no prose, following EXACTLY this schema:
+
+{
+  "projectRoot": "string",
+  "files": [
+    {
+      "path": "string (relative to projectRoot)",
+      "type": "file",
+      "content": "string (file contents)"
+    },
+    {
+      "path": "string (relative to projectRoot)",
+      "type": "dir"
+    }
+  ]
+}
+
+Rules:
+- "projectRoot" must be the root directory name provided by the user.
+- Do NOT include leading slashes in "path".
+- Use "type": "file" for files that have content.
+- Use "type": "dir" for directories with no direct content.
+- Make paths nested using "/" for folders.
+- Include all key files the user needs (HTML, CSS, JS, README, etc).
+- Keep the number of files reasonable but complete for a minimal working app.
+
+The user description of the project comes next.`;
+
+      const messages = [
+        { role: 'system', content: systemPrompt.trim() },
+        {
+          role: 'user',
+          content:
+            'Project root directory: ' +
+            rootPath +
+            '\n\nProject description:\n' +
+            description
+        }
+      ];
+
+      const res = await puter.ai.chat(messages, {
+        model: modelId,
+        stream: false
+      });
+      if (!res) throw new Error('Empty response from model.');
+
+      const rawText =
+        typeof res === 'string'
+          ? res
+          : res.message?.content || res.output || JSON.stringify(res);
+
+      log('Model plan (raw):');
+      log(rawText);
+
+      const jsonStart = rawText.indexOf('{');
+      const jsonEnd = rawText.lastIndexOf('}');
+      if (jsonStart === -1 || jsonEnd === -1) {
+        throw new Error('Could not find JSON object in response.');
+      }
+      const jsonText = rawText.slice(jsonStart, jsonEnd + 1);
+
+      let plan;
+      try {
+        plan = JSON.parse(jsonText);
+      } catch (err) {
+        console.error(err);
+        throw new Error('Failed to parse JSON: ' + err.message);
+      }
+
+      if (!plan.projectRoot || !Array.isArray(plan.files)) {
+        throw new Error('Plan missing projectRoot or files array.');
+      }
+      return plan;
+    }
+
+    function normalizePlanToFiles(plan) {
+      const baseRoot = plan.projectRoot.replace(/^\/+/, '');
+      const result = [];
+      for (const fileDef of plan.files) {
+        const relPath = (fileDef.path || '').replace(/^\/+/, '');
+        const fullPath = baseRoot.replace(/\/+$/, '') + '/' + relPath;
+        result.push({
+          type: fileDef.type === 'dir' ? 'dir' : 'file',
+          relPath,
+          fullPath,
+          content: fileDef.content || '',
+          savedStatus: null
+        });
+      }
+      return result;
+    }
+
+    async function saveFile(index) {
+      if (index < 0 || index >= currentFiles.length) return;
+      const file = currentFiles[index];
+      if (file.type === 'dir') {
+        try {
+          log('Creating directory: ' + file.fullPath);
+          await puter.fs.mkdir(file.fullPath, { createMissingParents: true });
+          file.savedStatus = 'directory created';
+        } catch (err) {
+          console.error(err);
+          log('Error creating directory: ' + file.fullPath + ' -> ' + err.message);
+          file.savedStatus = 'directory error';
+        }
+      } else {
+        const contentToWrite = (index === currentFileIndex ? editorContentEl.value : file.content || '');
+        try {
+          log('Writing file: ' + file.fullPath);
+          await puter.fs.write(file.fullPath, contentToWrite, {
+            createMissingParents: true
+          });
+          file.content = contentToWrite;
+          file.savedStatus = 'file written';
+        } catch (err) {
+          console.error(err);
+          log('Error writing file: ' + file.fullPath + ' -> ' + err.message);
+          file.savedStatus = 'file error';
+        }
+      }
+      renderFilesList();
+      if (index === currentFileIndex) {
+        editorStatusEl.textContent = file.savedStatus || '';
+      }
+    }
+
+    btnSaveCurrent.addEventListener('click', async () => {
+      if (currentFileIndex < 0) {
+        alert('Select a file first.');
+        return;
+      }
+      setBusy(true);
+      setStatus('Saving current file to Puter storage...');
+      try {
+        await saveFile(currentFileIndex);
+        setStatus('File saved.');
+      } catch (err) {
+        console.error(err);
+        setStatus('Error saving file: ' + err.message);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    btnSaveAll.addEventListener('click', async () => {
+      if (!currentFiles.length) {
+        alert('No files in the current plan.');
+        return;
+      }
+      setBusy(true);
+      setStatus('Saving all files to Puter storage...');
+      try {
+        for (let i = 0; i < currentFiles.length; i++) {
+          await saveFile(i);
+        }
+        setStatus('All files saved (see statuses in the list).');
+      } catch (err) {
+        console.error(err);
+        setStatus('Error saving some files: ' + err.message);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    btnGenerate.addEventListener('click', async () => {
+      const description = promptEl.value.trim();
+      const rootPath = rootPathEl.value.trim();
+      const modelId = modelSelectEl.value;
+
+      if (!description) {
+        alert('Please describe the project you want.');
+        return;
+      }
+      if (!rootPath) {
+        alert('Please set a project root directory.');
+        return;
+      }
+
+      setBusy(true);
+      logBoxEl.textContent = '';
+      log('Requesting project plan from model: ' + modelId + ' ...');
+      setStatus('Asking ' + modelId + ' for a project plan (no files written yet)...');
+
+      try {
+        const plan = await callModelForPlan(rootPath, description, modelId);
+        currentPlan = plan;
+        currentFiles = normalizePlanToFiles(plan);
+        log('Received plan with projectRoot: ' + plan.projectRoot + ' and ' + currentFiles.length + ' entries.');
+        renderFilesList();
+        if (currentFiles.length) {
+          openFileInEditor(0);
+        } else {
+          editorFilenameEl.textContent = 'No file selected';
+          editorContentEl.value = '';
+          editorStatusEl.textContent = '';
+        }
+        setStatus('Plan ready. Review/edit files on the right, then click Save when ready.');
+      } catch (err) {
+        console.error(err);
+        log('ERROR: ' + err.message);
+        setStatus('Error: ' + err.message);
+        currentPlan = null;
+        currentFiles = [];
+        renderFilesList();
+      } finally {
+        setBusy(false);
+      }
+    });
+  </script>
+</body>
+</html>
+      background: radial-gradient(circle at 30% 30%, #4ade80 0, #16a34a 55%, #052e16 100%);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+    }
+
+    .layout {
+      display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
       gap: 12px;
       align-items: stretch;

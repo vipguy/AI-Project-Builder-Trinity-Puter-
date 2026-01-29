@@ -309,6 +309,631 @@
         <div>
           <h1>AI Project Builder</h1>
           <p class="subtitle">
+            Describe an app, watch the selected model design the structure and create files under your Puter account.
+          </p>
+        </div>
+      </div>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span id="modelPillText">Trinity Large · puter.ai.chat</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">1. Describe your project</div>
+            <div class="panel-subtitle">
+              Example: “Todo app with HTML/CSS/JS, one page, dark theme, localStorage.”
+            </div>
+          </div>
+        </div>
+
+        <label style="font-size:11px; color:var(--muted); margin-bottom:3px;">
+          Project root directory (under your app sandbox)
+        </label>
+        <input id="rootPath" type="text" value="projects/todo-app"
+               placeholder="e.g. projects/my-first-app" />
+
+        <textarea id="prompt" placeholder="Describe what you want the app to do, tech stack, and any structure rules..."></textarea>
+
+        <label style="font-size:11px; color:var(--muted); margin:4px 0 3px;">
+          Model
+        </label>
+        <select id="modelSelect" style="
+          width:100%;
+          border-radius:12px;
+          border:1px solid rgba(148,163,184,0.4);
+          background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
+          color: var(--text);
+          font: inherit;
+          padding: 7px 10px;
+          font-size: 12px;
+          outline:none;
+        ">
+          <!-- Native Trinity Large preview -->
+          <option value="arcee-ai/trinity-large-preview:free">
+            Trinity Large (arcee-ai/trinity-large-preview:free)
+          </option>
+
+          <!-- All OpenRouter :free models from chat/models -->
+          <option value="openrouter:allenai/molmo-2-8b:free">
+            openrouter:allenai/molmo-2-8b:free
+          </option>
+          <option value="openrouter:arcee-ai/trinity-large-preview:free">
+            openrouter:arcee-ai/trinity-large-preview:free
+          </option>
+          <option value="openrouter:arcee-ai/trinity-mini:free">
+            openrouter:arcee-ai/trinity-mini:free
+          </option>
+          <option value="openrouter:cognitivecomputations/dolphin-mistral-24b-venice-edition:free">
+            openrouter:cognitivecomputations/dolphin-mistral-24b-venice-edition:free
+          </option>
+          <option value="openrouter:deepseek/deepseek-r1-0528:free">
+            openrouter:deepseek/deepseek-r1-0528:free
+          </option>
+          <option value="openrouter:google/gemma-3-12b-it:free">
+            openrouter:google/gemma-3-12b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3-27b-it:free">
+            openrouter:google/gemma-3-27b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3-4b-it:free">
+            openrouter:google/gemma-3-4b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3n-e2b-it:free">
+            openrouter:google/gemma-3n-e2b-it:free
+          </option>
+          <option value="openrouter:google/gemma-3n-e4b-it:free">
+            openrouter:google/gemma-3n-e4b-it:free
+          </option>
+          <option value="openrouter:liquid/lfm-2.5-1.2b-instruct:free">
+            openrouter:liquid/lfm-2.5-1.2b-instruct:free
+          </option>
+          <option value="openrouter:liquid/lfm-2.5-1.2b-thinking:free">
+            openrouter:liquid/lfm-2.5-1.2b-thinking:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.1-405b-instruct:free">
+            openrouter:meta-llama/llama-3.1-405b-instruct:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.2-3b-instruct:free">
+            openrouter:meta-llama/llama-3.2-3b-instruct:free
+          </option>
+          <option value="openrouter:meta-llama/llama-3.3-70b-instruct:free">
+            openrouter:meta-llama/llama-3.3-70b-instruct:free
+          </option>
+          <option value="openrouter:mistralai/mistral-small-3.1-24b-instruct:free">
+            openrouter:mistralai/mistral-small-3.1-24b-instruct:free
+          </option>
+          <option value="openrouter:moonshotai/kimi-k2:free">
+            openrouter:moonshotai/kimi-k2:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-3-nano-30b-a3b:free">
+            openrouter:nvidia/nemotron-3-nano-30b-a3b:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-nano-12b-v2-vl:free">
+            openrouter:nvidia/nemotron-nano-12b-v2-vl:free
+          </option>
+          <option value="openrouter:nvidia/nemotron-nano-9b-v2:free">
+            openrouter:nvidia/nemotron-nano-9b-v2:free
+          </option>
+          <option value="openrouter:openai/gpt-oss-120b:free">
+            openrouter:openai/gpt-oss-120b:free
+          </option>
+          <option value="openrouter:openai/gpt-oss-20b:free">
+            openrouter:openai/gpt-oss-20b:free
+          </option>
+          <option value="openrouter:qwen/qwen-2.5-vl-7b-instruct:free">
+            openrouter:qwen/qwen-2.5-vl-7b-instruct:free
+          </option>
+          <option value="openrouter:qwen/qwen3-4b:free">
+            openrouter:qwen/qwen3-4b:free
+          </option>
+          <option value="openrouter:qwen/qwen3-coder:free">
+            openrouter:qwen/qwen3-coder:free
+          </option>
+          <option value="openrouter:qwen/qwen3-next-80b-a3b-instruct:free">
+            openrouter:qwen/qwen3-next-80b-a3b-instruct:free
+          </option>
+          <option value="openrouter:tngtech/deepseek-r1t-chimera:free">
+            openrouter:tngtech/deepseek-r1t-chimera:free
+          </option>
+          <option value="openrouter:tngtech/deepseek-r1t2-chimera:free">
+            openrouter:tngtech/deepseek-r1t2-chimera:free
+          </option>
+          <option value="openrouter:tngtech/tng-r1t-chimera:free">
+            openrouter:tngtech/tng-r1t-chimera:free
+          </option>
+          <option value="openrouter:upstage/solar-pro-3:free">
+            openrouter:upstage/solar-pro-3:free
+          </option>
+          <option value="openrouter:z-ai/glm-4.5-air:free">
+            openrouter:z-ai/glm-4.5-air:free
+          </option>
+        </select>
+
+        <div class="controls">
+          <div class="status-line" id="statusLine">
+            <span class="status-dot"></span>
+            <span id="statusText">Idle. Ready to plan a project.</span>
+          </div>
+          <div class="right-controls">
+            <button class="btn-secondary" id="btnExample">Fill example</button>
+            <button class="btn" id="btnGenerate">Ask AI & build</button>
+          </div>
+        </div>
+
+        <div class="output-box" id="logBox"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">2. Files created</div>
+            <div class="panel-subtitle">
+              These paths are written via puter.fs.mkdir / puter.fs.write with createMissingParents: true.
+            </div>
+          </div>
+        </div>
+        <div class="files-list" id="filesList">
+          No files yet. Describe a project and click “Ask AI & build”.
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Files are stored in your Puter space, scoped to this app. Open them later in any Puter editor or your own tools.
+    </footer>
+  </div>
+
+  <script>
+    const promptEl = document.getElementById('prompt');
+    const rootPathEl = document.getElementById('rootPath');
+    const statusTextEl = document.getElementById('statusText');
+    const logBoxEl = document.getElementById('logBox');
+    const filesListEl = document.getElementById('filesList');
+    const btnGenerate = document.getElementById('btnGenerate');
+    const btnExample = document.getElementById('btnExample');
+    const modelSelectEl = document.getElementById('modelSelect');
+    const modelPillTextEl = document.getElementById('modelPillText');
+
+    function log(message) {
+      const time = new Date().toLocaleTimeString();
+      logBoxEl.textContent += '[' + time + '] ' + message + '\n';
+      logBoxEl.scrollTop = logBoxEl.scrollHeight;
+    }
+
+    function setStatus(text) {
+      statusTextEl.textContent = text;
+    }
+
+    function setBusy(busy) {
+      btnGenerate.disabled = busy;
+      btnExample.disabled = busy;
+      modelSelectEl.disabled = busy;
+    }
+
+    function renderFilesList(entries) {
+      if (!entries || !entries.length) {
+        filesListEl.textContent = 'No files yet.';
+        return;
+      }
+      filesListEl.innerHTML = '';
+      for (const e of entries) {
+        const div = document.createElement('div');
+        div.className = 'file-item';
+        const dot = document.createElement('div');
+        dot.className = 'file-dot' + (e.type === 'dir' ? ' file-dot-dir' : '');
+        const pathSpan = document.createElement('div');
+        pathSpan.className = 'file-path';
+        pathSpan.textContent = e.path;
+        const statusSpan = document.createElement('div');
+        statusSpan.className = 'file-status';
+        statusSpan.textContent = e.status || '';
+        div.appendChild(dot);
+        div.appendChild(pathSpan);
+        div.appendChild(statusSpan);
+        filesListEl.appendChild(div);
+      }
+    }
+
+    btnExample.addEventListener('click', () => {
+      promptEl.value =
+`Build a simple mobile-friendly Todo web app:
+
+- Use HTML, CSS, and vanilla JS
+- One main page with header and a card-style list
+- Add tasks, mark complete, delete
+- Persist to localStorage
+- Use a dark theme with a purple accent
+- Put code into: index.html, style.css, app.js
+
+Also include a short README.md explaining how to run it.`;
+      rootPathEl.value = 'projects/todo-app';
+    });
+
+    modelSelectEl.addEventListener('change', () => {
+      const v = modelSelectEl.value;
+      if (v === 'arcee-ai/trinity-large-preview:free') {
+        modelPillTextEl.textContent = 'Trinity Large · puter.ai.chat';
+      } else {
+        modelPillTextEl.textContent = v + ' · puter.ai.chat';
+      }
+    });
+
+    async function callModelForPlan(rootPath, description, modelId) {
+      const systemPrompt = `
+You are an AI project planner and code generator running inside a Puter.js app.
+You MUST respond ONLY with valid JSON, no prose, following EXACTLY this schema:
+
+{
+  "projectRoot": "string",
+  "files": [
+    {
+      "path": "string (relative to projectRoot)",
+      "type": "file",
+      "content": "string (file contents)"
+    },
+    {
+      "path": "string (relative to projectRoot)",
+      "type": "dir"
+    }
+  ]
+}
+
+Rules:
+- "projectRoot" must be the root directory name provided by the user.
+- Do NOT include leading slashes in "path".
+- Use "type": "file" for files that have content.
+- Use "type": "dir" for directories with no direct content.
+- Make paths nested using "/" for folders.
+- Include all key files the user needs (HTML, CSS, JS, README, etc).
+- Keep the number of files reasonable but complete for a minimal working app.
+
+The user description of the project comes next.`;
+
+      const messages = [
+        { role: 'system', content: systemPrompt.trim() },
+        {
+          role: 'user',
+          content:
+            'Project root directory: ' +
+            rootPath +
+            '\n\nProject description:\n' +
+            description
+        }
+      ];
+
+      const res = await puter.ai.chat(messages, {
+        model: modelId,
+        stream: false
+      });
+      if (!res) throw new Error('Empty response from model.');
+
+      const rawText =
+        typeof res === 'string'
+          ? res
+          : res.message?.content || res.output || JSON.stringify(res);
+
+      log('Model plan (raw):');
+      log(rawText);
+
+      const jsonStart = rawText.indexOf('{');
+      const jsonEnd = rawText.lastIndexOf('}');
+      if (jsonStart === -1 || jsonEnd === -1) {
+        throw new Error('Could not find JSON object in response.');
+      }
+      const jsonText = rawText.slice(jsonStart, jsonEnd + 1);
+
+      let plan;
+      try {
+        plan = JSON.parse(jsonText);
+      } catch (err) {
+        console.error(err);
+        throw new Error('Failed to parse JSON: ' + err.message);
+      }
+
+      if (!plan.projectRoot || !Array.isArray(plan.files)) {
+        throw new Error('Plan missing projectRoot or files array.');
+      }
+      return plan;
+    }
+
+    async function createFromPlan(plan) {
+      const entries = [];
+      const baseRoot = plan.projectRoot.replace(/^\/+/, '');
+
+      for (const fileDef of plan.files) {
+        const relPath = fileDef.path.replace(/^\/+/, '');
+        const fullPath = baseRoot.replace(/\/+$/, '') + '/' + relPath;
+
+        if (fileDef.type === 'dir') {
+          log('Creating directory: ' + fullPath);
+          try {
+            await puter.fs.mkdir(fullPath, { createMissingParents: true });
+            entries.push({ type: 'dir', path: fullPath, status: 'created' });
+          } catch (err) {
+            console.error(err);
+            entries.push({
+              type: 'dir',
+              path: fullPath,
+              status: 'error'
+            });
+            log('Error creating directory: ' + fullPath + ' -> ' + err.message);
+          }
+        } else if (fileDef.type === 'file') {
+          log('Writing file: ' + fullPath);
+          try {
+            await puter.fs.write(fullPath, fileDef.content || '', {
+              createMissingParents: true
+            });
+            entries.push({ type: 'file', path: fullPath, status: 'written' });
+          } catch (err) {
+            console.error(err);
+            entries.push({
+              type: 'file',
+              path: fullPath,
+              status: 'error'
+            });
+            log('Error writing file: ' + fullPath + ' -> ' + err.message);
+          }
+        }
+      }
+
+      return entries;
+    }
+
+    btnGenerate.addEventListener('click', async () => {
+      const description = promptEl.value.trim();
+      const rootPath = rootPathEl.value.trim();
+      const modelId = modelSelectEl.value;
+
+      if (!description) {
+        alert('Please describe the project you want.');
+        return;
+      }
+      if (!rootPath) {
+        alert('Please set a project root directory.');
+        return;
+      }
+
+      setBusy(true);
+      logBoxEl.textContent = '';
+      log('Starting planning and file creation with model: ' + modelId + ' ...');
+      setStatus('Asking ' + modelId + ' for a project plan...');
+
+      try {
+        const plan = await callModelForPlan(rootPath, description, modelId);
+        log('Received plan with projectRoot: ' + plan.projectRoot);
+        setStatus('Creating folders and files via puter.fs ...');
+
+        const entries = await createFromPlan(plan);
+        renderFilesList(entries);
+
+        const okCount = entries.filter(e => e.status === 'created' || e.status === 'written').length;
+        const total = entries.length;
+        setStatus('Done. ' + okCount + '/' + total + ' items created/written.');
+        log('Finished writing files. Open them in your Puter file manager or any editor.');
+      } catch (err) {
+        console.error(err);
+        log('ERROR: ' + err.message);
+        setStatus('Error: ' + err.message);
+      } finally {
+        setBusy(false);
+      }
+    });
+  </script>
+</body>
+</html>
+      background: radial-gradient(circle at 30% 30%, #4ade80 0, #16a34a 55%, #052e16 100%);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      color: var(--text);
+      font: inherit;
+      padding: 9px 10px;
+      resize: vertical;
+      min-height: 46px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.18s ease,
+        background 0.18s ease, transform 0.12s ease;
+    }
+    textarea {
+      min-height: 76px;
+    }
+    textarea::placeholder,
+    input::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+    textarea:focus,
+    input:focus {
+      border-color: rgba(129, 140, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8),
+        0 18px 40px rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
+      transform: translateY(-0.5px);
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .right-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: radial-gradient(circle at 30% 0, #a855f7, #6366f1, #0f172a);
+      color: white;
+      box-shadow: 0 16px 35px rgba(79, 70, 229, 0.65);
+      transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
+    }
+    .btn:active {
+      transform: translateY(0.5px) scale(0.985);
+      box-shadow: 0 10px 22px rgba(79, 70, 229, 0.55);
+      filter: brightness(0.96);
+    }
+    .btn[disabled] {
+      opacity: 0.7;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .status-line {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(129, 140, 248, 0.8);
+      box-shadow: 0 0 10px rgba(129, 140, 248, 0.9);
+    }
+
+    .output-box {
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      max-height: 270px;
+      overflow: auto;
+      white-space: pre-wrap;
+    }
+    .output-box strong {
+      color: #a5b4fc;
+      font-weight: 600;
+    }
+
+    .files-list {
+      border-radius: 12px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), #020617);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 8px 10px;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      max-height: 270px;
+      overflow: auto;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 2px;
+    }
+    .file-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: #4ade80;
+    }
+    .file-dot-dir {
+      background: #38bdf8;
+      border-radius: 50%;
+    }
+    .file-path {
+      word-break: break-all;
+    }
+    .file-status {
+      font-size: 10px;
+      color: var(--muted);
+      margin-left: auto;
+      padding-left: 6px;
+    }
+
+    footer {
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <div class="logo-orb">
+          <div class="logo-orb-inner">Q</div>
+        </div>
+        <div>
+          <h1>AI Project Builder</h1>
+          <p class="subtitle">
             Describe an app, watch Trinity Large (or another model) design the structure and create files under your Puter account.
           </p>
         </div>

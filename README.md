@@ -1,92 +1,46 @@
-
-
-# 🧠 AI Project Builder (Trinity + Puter.js)
-
-[ [developer.puter](https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)
-[ [developer.puter](https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)
-[ [arcee](https://www.arcee.ai)
-[
-
-AI-powered project generator that turns a short description into a full project tree (HTML/CSS/JS/README, etc.) and writes files directly into your **Puter** cloud using `puter.fs` and **Trinity Large** via `puter.ai.chat`. [developer.puter](https://developer.puter.com/tutorials/free-unlimited-arcee-ai-api/)
-
-> “Describe an app, watch Trinity Large design the structure and create files under your Puter account.”
-
-***
-
-## ✨ Features
-
-- **AI project planning** – uses `arcee-ai/trinity-large-preview:free` through `puter.ai.chat` to generate a JSON plan for files and folders. [developer.puter](https://developer.puter.com/tutorials/free-unlimited-arcee-ai-api/)
-- **Automatic file creation** – writes everything into your Puter space with `puter.fs.mkdir` and `puter.fs.write` (`createMissingParents: true`). [developer.puter](https://developer.puter.com/tutorials/free-unlimited-arcee-ai-api/)
-- **Mobile-first UI** – single-page, responsive layout tuned for phones and small laptops.
-- **Dark, neon-inspired design** – gradients, soft borders, and subtle motion on focus/press.
-- **One-click example** – built‑in Todo app prompt to test the flow instantly.
-
-***
-
-## Preview
-
-_Add a screenshot or GIF of the app here (e.g.](https://aiprojectbuilder-549196.puter.site/))_
+(https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)
 
 ```markdown
-![AI Project Builder screenshot](docs/screenshot.png)
-```
+# AI Project Builder (Puter.js + Trinity / OpenRouter)
 
-***
+A simple web app that lets you describe a project in natural language and have an AI model generate a project plan and write files into your Puter storage (HTML, CSS, JS, README, etc.).
 
-## 🛠 Tech Stack
+## Features
 
-- **Frontend:** HTML5, CSS3, vanilla JS (single-page app)
-- **Cloud & FS:** Puter.js v2 (`puter.fs.mkdir`, `puter.fs.write`) [developer.puter](https://developer.puter.com/tutorials/free-unlimited-arcee-ai-api/)
-- **AI:** Arcee AI Trinity Large Preview (`arcee-ai/trinity-large-preview:free`) via `puter.ai.chat` [developer.puter](https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)
-- **Runtime:** Any modern browser with Puter.js loaded using:
-  ```html
-  <script src="https://js.puter.com/v2/"></script>
-  ``` [developer.puter](https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)
+- Runs fully in the browser using `https://js.puter.com/v2/`.
+- Uses `puter.ai.chat` with your choice of free models (Trinity Large plus OpenRouter `:free` models).
+- Creates folders and files via `puter.fs.mkdir` and `puter.fs.write` with `createMissingParents: true`.
+- Shows a live log of the AI response and a list of generated files.
 
-***
+## Getting Started
 
-## 🚀 Quick Start
+1. Create a new HTML file on Puter (or in any static host).
+2. Paste the contents of `index.html` from this repo.
+3. Open the file in a browser while logged into your Puter account.
 
-<details>
-<summary><strong>Option 1 – Run directly on Puter</strong></summary>
+No API keys or backend are required.
 
-1. Sign in to [Puter](https://puter.com/) in your browser. [developer.puter](https://developer.puter.com/tutorials/free-unlimited-arcee-ai-api/)
-2. Create a new file in your workspace, e.g. `apps/ai-project-builder.html`.
-3. Paste the full HTML from this repository’s main file into it.
-4. Open the file in Puter (Preview or double‑click).
-5. Describe a project, set a project root (e.g. `projects/todo-app`), and click **“Ask Trinity & build”**.
-6. Open your Puter file manager to inspect and edit the generated project.
+## Usage
 
-</details>
+1. Enter a project root path (for example: `projects/todo-app`).
+2. Describe the app you want (tech stack, pages, files, etc.).
+3. Pick a model from the dropdown (Trinity Large or any free OpenRouter model).
+4. Click **“Ask AI & build”**.
+5. Open the generated files in your Puter file manager or editor to tweak and deploy.
 
-<details>
-<summary><strong>Option 2 – Clone and run locally</strong></summary>
+## Tech Stack
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/ai-project-builder.git
-   cd ai-project-builder
-   ```
-2. Open `index.html` (or the main `.html` file) in a modern browser.
-3. Ensure you are logged into Puter in the same browser profile.
-4. Use the UI as above to generate and inspect projects.
+- HTML, CSS, vanilla JavaScript
+- [Puter.js](https://developer.puter.com/) for:
+  - `puter.ai.chat` (AI models)
+  - `puter.fs` (file and directory operations)
+- Arcee AI Trinity Large and free OpenRouter models exposed through Puter
 
-</details>
+## Notes
 
-***
-
-## 🔍 How It Works
-
-<details>
-<summary><strong>AI planning flow</strong></summary>
-
-- The app constructs a **system prompt** instructing Trinity to output **only JSON** with:
-  - `projectRoot`: string
-  - `files`: array of `{ path, type: "file" | "dir", content? }`.
-- It calls:
-  ```js
-  const res = await puter.ai.chat(messages, {
-    model: 'arcee-ai/trinity-large-preview:free',
+- The app asks the model to return a JSON plan describing `projectRoot` and a list of files/directories, then writes them into your Puter space.
+- If a model returns invalid JSON, the app will show an error in the log; try a different model or simplify the prompt.
+```    model: 'arcee-ai/trinity-large-preview:free',
     stream: false
   });
   ``` [developer.puter](https://developer.puter.com/blog/arcee-ai-trinity-large-in-puter-js/)

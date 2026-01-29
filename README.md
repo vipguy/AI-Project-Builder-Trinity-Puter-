@@ -23,9 +23,9 @@ AI-powered project generator that turns a short description into a full project 
 
 ***
 
-## 📸 Preview
+## Preview
 
-_Add a screenshot or GIF of the app here (e.g. `docs/screenshot.png`)_
+_Add a screenshot or GIF of the app here (e.g.](https://aiprojectbuilder-549196.puter.site/))_
 
 ```markdown
 ![AI Project Builder screenshot](docs/screenshot.png)
